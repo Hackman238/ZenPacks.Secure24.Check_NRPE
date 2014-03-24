@@ -2,13 +2,13 @@
 <configure xmlns="http://namespaces.zope.org/browser">
 
     <resourceDirectory
-        name="check_nrpe"
+        name="nrpe"
         directory="resources"
         />
 
     <viewlet
         name="js-nrpedevice"
-        paths="/++resource++check_nrpe/js/nrpeDevice.js"
+        paths="/++resource++nrpe/js/nrpeDevice.js"
         weight="10"
         for="..nrpeDevice.nrpeDevice"
         manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"

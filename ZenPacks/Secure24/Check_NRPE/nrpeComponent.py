@@ -4,21 +4,30 @@ from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
 from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 
 
-class ExampleComponent(DeviceComponent, ManagedEntity):
-    meta_type = portal_type = "ExampleComponent"
+class nrpeComponent(DeviceComponent, ManagedEntity):
+    meta_type = portal_type = "nrpeComponent"
 
-    attributeOne = None
-    attributeTwo = None
+    title = None
+    nrpe_cmd = None
+    nrpe_args = None
+    nrpe_timeout = 30
+    nrpe_cycle = 5
+    nrpe_retries = 3
+    
 
     _properties = ManagedEntity._properties + (
-        {'id': 'attributeOne', 'type': 'int', 'mode': ''},
-        {'id': 'attributeTwo', 'type': 'string', 'mode': ''},
+        {'id': 'title', 'type': 'string', 'mode': ''},
+        {'id': 'nrpe_cmd', 'type': 'string', 'mode': ''},
+        {'id': 'nrpe_args', 'type': 'string', 'mode': ''},
+        {'id': 'nrpe_timeout', 'type': 'int', 'mode': ''},
+        {'id': 'nrpe_cycle', 'type': 'int', 'mode': ''},
+        {'id': 'nrpe_retries', 'type': 'int', 'mode': ''},
     )
 
     _relations = ManagedEntity._relations + (
-        ('exampleDevice', ToOne(ToManyCont,
-            'ZenPacks.NAMESPACE.PACKNAME.ExampleDevice.ExampleDevice',
-            'exampleComponents',
+        ('nrpeDevice', ToOne(ToManyCont,
+            'ZenPacks.Secure24.Check_NRPE.nrpeDevice',
+            'nrpeComponents',
             ),
         ),
     )
@@ -37,4 +46,8 @@ class ExampleComponent(DeviceComponent, ManagedEntity):
     # Custom components must always implement the device method. The method
     # should return the device object that contains the component.
     def device(self):
-        return self.exampleDevice()
+        return self.nrpeDevice()
+
+    def getRRDTemplateName(self):
+        return 'nrpeComponent'
+
