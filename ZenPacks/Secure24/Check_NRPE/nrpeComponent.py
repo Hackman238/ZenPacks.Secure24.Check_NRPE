@@ -6,31 +6,32 @@ from Globals import DTMLFile
 from Products.ZenUtils.Utils import prepId
 
 
-def manage_addnrpeComponent(context, title, nrpe_cmd, nrpe_args, nrpe_timeout, userCreated=None, REQUEST = None):
-    """ Adds NRPE Check/Component monitor"""
+#def manage_addnrpeComponent(context, title, nrpe_cmd, nrpe_args, nrpe_timeout, userCreated=None, REQUEST = None):
+#    """ Adds NRPE Check/Component monitor"""
+#
+#    id = prepId(title)
+#    new_nrpecomponent = nrpeComponent(id)
+#
+#    context._setObject(id, new_nrpecomponent)
+#
+#    nrpecomponent = context._getOb(id)
+#
+#    nrpecomponent.nrpe_cmd = nrpe_cmd
+#    nrpecomponent.nrpe_args = nrpe_args
+#    nrpecomponent.nrpe_timeout = int(nrpe_timeout)
+#
+#    if userCreated: nrpecomponent.setUserCreateFlag()
+#
+#    if REQUEST is not None:
+#        REQUEST['RESPONSE'].redirect(context.absolute_url()
+#                                     +'/manage_main')
+#
+#addnrpeComponent = DTMLFile('dtml/addnrpeComponent',globals())
 
-    id = prepId(title)
-    new_nrpecomponent = nrpeComponent(id)
 
-    context._setObject(id, new_nrpecomponent)
-
-    nrpecomponent = context._getOb(id)
-
-    nrpecomponent.nrpe_cmd = nrpe_cmd
-    nrpecomponent.nrpe_args = nrpe_args
-    nrpecomponent.nrpe_timeout = int(nrpe_timeout)
-
-    if userCreated: nrpecomponent.setUserCreateFlag()
-
-    if REQUEST is not None:
-        REQUEST['RESPONSE'].redirect(context.absolute_url()
-                                     +'/manage_main')
-
-addnrpeComponent = DTMLFile('dtml/addnrpeComponent',globals())
-
-
-class nrpeComponent(OSComponent, ManagedEntity):
+class nrpeComponent(OSComponent):
     meta_type = portal_type = "nrpeComponent"
+#    meta_type = "nrpeComponent"
 
     title = None
     nrpe_cmd = None
@@ -38,7 +39,7 @@ class nrpeComponent(OSComponent, ManagedEntity):
     nrpe_timeout = 30
     device_os = None
 
-    _properties = ManagedEntity._properties + (
+    _properties = OSComponent._properties + (
         {'id': 'title', 'type': 'string', 'mode': ''},
         {'id': 'nrpe_cmd', 'type': 'string', 'mode': ''},
         {'id': 'nrpe_args', 'type': 'string', 'mode': ''},
@@ -65,19 +66,19 @@ class nrpeComponent(OSComponent, ManagedEntity):
 
     # Defining the "perfConf" action here causes the "Graphs" display to be
     # available for components of this type.
-    factory_type_information = ({
-        'actions': ({
-            'id': 'perfConf',
-            'name': 'Template',
-            'action': 'objTemplates',
-            'permissions': (ZEN_CHANGE_DEVICE,),
-        },),
-    },)
+#    factory_type_information = ({
+#        'actions': ({
+#            'id': 'perfConf',
+#            'name': 'Template',
+#            'action': 'objTemplates',
+#            'permissions': (ZEN_CHANGE_DEVICE,),
+#        },),
+#    },)
 
     # Custom components must always implement the device method. The method
     # should return the device object that contains the component.
-    def device(self):
-        return self.getPrimaryParent()
+#    def device(self):
+#        return self.getPrimaryParent()
 
     isUserCreatedFlag = False
     def isUserCreated(self):
@@ -108,24 +109,24 @@ class nrpeComponent(OSComponent, ManagedEntity):
             REQUEST['RESPONSE'].redirect(url)
 
 
-    def manage_updateComponent(self, datamap, REQUEST=None):
-        """
-        Update OSComponent
-        """
-        url = None
-        if REQUEST is not None:
-            url = self.device().os.absolute_url()
-        self.getPrimaryParent()._updateObject(self, datamap)
-        '''
-        eventDict = {
-            'eventClass': Change_Set,
-            'device': self.device().id,
-            'component': self.id or '',
-            'summary': 'Updated by user: %s' % 'user',
-            'severity': Event.Info,
-            }
-        self.dmd.ZenEventManager.sendEvent(eventDict)
-        '''
-        if REQUEST is not None:
-            REQUEST['RESPONSE'].redirect(url)
+#    def manage_updateComponent(self, datamap, REQUEST=None):
+#        """
+#        Update OSComponent
+#        """
+#        url = None
+#        if REQUEST is not None:
+#            url = self.device().os.absolute_url()
+#        self.getPrimaryParent()._updateObject(self, datamap)
+#        '''
+#        eventDict = {
+#            'eventClass': Change_Set,
+#            'device': self.device().id,
+#            'component': self.id or '',
+#            'summary': 'Updated by user: %s' % 'user',
+#            'severity': Event.Info,
+#            }
+#        self.dmd.ZenEventManager.sendEvent(eventDict)
+#        '''
+#        if REQUEST is not None:
+#            REQUEST['RESPONSE'].redirect(url)
 

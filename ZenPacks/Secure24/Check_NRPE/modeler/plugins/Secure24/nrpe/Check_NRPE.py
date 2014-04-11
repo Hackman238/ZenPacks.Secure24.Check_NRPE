@@ -4,9 +4,9 @@ from Products.ZenUtils.ZenScriptBase import ZenScriptBase
 
 
 class Check_NRPE(PythonPlugin):
-    relname = 'nrpeComponents'
+    relname = 'nrpeComponent'
     modname = 'ZenPacks.Secure24.Check_NRPE.nrpeComponent'
-
+    compname = 'os'
 
     # Define default check_nrpe checks used by Secure-24
     # These checks will be added to the device.
@@ -101,5 +101,5 @@ class Check_NRPE(PythonPlugin):
             om.nrpe_timeout = results[cmd_index]['nrpe_timeout']
 
             rm.append(om)
-        
+        import pdb; pdb.set_trace()
         return rm
