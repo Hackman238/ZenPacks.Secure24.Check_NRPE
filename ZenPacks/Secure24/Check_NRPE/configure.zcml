@@ -2,21 +2,9 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
     <adapter
-        provides=".interfaces.InrpeDeviceInfo"
-        for=".nrpeDevice.nrpeDevice"
-        factory=".info.nrpeDeviceInfo"
-        />
-
-    <adapter
         provides=".interfaces.InrpeComponentInfo"
         for=".nrpeComponent.nrpeComponent"
         factory=".info.nrpeComponentInfo"
-        />
-
-    <adapter
-        provides=".interfaces.InrpeComponentFacade"
-        for=".nrpeComponent.nrpeComponent"
-        factory=".facades.nrpeComponentFacade"
         />
 
     <include package=".browser"/>

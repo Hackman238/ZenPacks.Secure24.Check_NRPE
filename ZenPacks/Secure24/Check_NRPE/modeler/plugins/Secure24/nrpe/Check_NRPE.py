@@ -1,12 +1,6 @@
-from Products.DataCollector.plugins.CollectorPlugin import (CollectorPlugin, SnmpPlugin, PythonPlugin, GetTableMap)
+from Products.DataCollector.plugins.CollectorPlugin import PythonPlugin
 from Products.DataCollector.DeviceProxy import DeviceProxy
 from Products.ZenUtils.ZenScriptBase import ZenScriptBase
-import subprocess
-import os
-
-
-def Get_TotalMemory(SnmpPlugin):
-    pass
 
 
 class Check_NRPE(PythonPlugin):
@@ -18,30 +12,12 @@ class Check_NRPE(PythonPlugin):
     # These checks will be added to the device.
     def collect(self, device, log):
 
-        snmpGetTableMaps = (
-        GetTableMap(
-            'total_memory__entry', '.1.3.6.1.2.1.25.2.2', {
-                '.0': 'total_memory_index',
-                }
-            ),
-        )
-
-
-#        mem_instances = snmpGetTableMaps.get('total_memory__entry', {})
-#        for snmpindex, row in mem_instances.items():
-#            device_mem = row.get('total_memory_index')
-
-#        import pdb; pdb.set_trace()
-        device_mem = 8000000
         nrpeCmdTableMaps = {}
         nrpeCmdTableMaps["Physical Memory Usage"] = {
             'device_os': "windows",
             'nrpe_cmd': 'CheckMem',
             'nrpe_args': 'ShowAll type=physical',
             'nrpe_timeout': 30,
-            'nrpe_min': 0,
-            'nrpe_max': device_mem,
-            'nrpe_graphpoint': 'Current Usage'
             }
 
         nrpeCmdTableMaps["CPU Usage"] = {
@@ -49,9 +25,6 @@ class Check_NRPE(PythonPlugin):
             'nrpe_cmd': 'CheckCPU',
             'nrpe_args': 'time=5m',
             'nrpe_timeout': 30,
-            'nrpe_min': 0,
-            'nrpe_max': 99,
-            'nrpe_graphpoint': '5m'
             }
 
         nrpeCmdTableMaps["DNS Lookups"] = {
@@ -59,9 +32,6 @@ class Check_NRPE(PythonPlugin):
             'nrpe_cmd': 'check_dns_lookups',
             'nrpe_args': None,
             'nrpe_timeout': 30,
-            'nrpe_min': 0,
-            'nrpe_max': 0,
-            'nrpe_graphpoint': 'Errors'
             }
 
         nrpeCmdTableMaps["Read Only Mounts"] = {
@@ -69,9 +39,6 @@ class Check_NRPE(PythonPlugin):
             'nrpe_cmd': 'nrpe-check-ro-mounts',
             'nrpe_args': None,
             'nrpe_timeout': 30,
-            'nrpe_min': 0,
-            'nrpe_max': 0,
-            'nrpe_graphpoint': 'Errors'
             }
 
         nrpeCmdTableMaps["LDAP Connectivity"] = {
@@ -79,9 +46,6 @@ class Check_NRPE(PythonPlugin):
             'nrpe_cmd': 'check_ldap_lookups',
             'nrpe_args': None,
             'nrpe_timeout': 30,
-            'nrpe_min': 0,
-            'nrpe_max': 0,
-            'nrpe_graphpoint': 'Errors'
             }
 
         nrpeCmdTableMaps["NTP Offset"] = {
@@ -89,9 +53,6 @@ class Check_NRPE(PythonPlugin):
             'nrpe_cmd': 'check_ntp_offset',
             'nrpe_args': None,
             'nrpe_timeout': 60,
-            'nrpe_min': 0,
-            'nrpe_max': 0,
-            'nrpe_graphpoint': 'Errors'
             }
 
         try:
@@ -106,9 +67,6 @@ class Check_NRPE(PythonPlugin):
                      'nrpe_cmd': cmd.nrpe_cmd,
                      'nrpe_args': cmd.nrpe_args,
                      'nrpe_timeout': cmd.nrpe_timeout,
-                     'nrpe_min': cmd.nrpe_min,
-                     'nrpe_max': cmd.nrpe_max,
-                     'nrpe_graphpoint': cmd.nrpe_graphpoint
                      }
         except:
             log.warn('Unable to pull previous NRPE Components')
@@ -127,7 +85,7 @@ class Check_NRPE(PythonPlugin):
                 continue
             else:
                 data[cmd_index] = nrpeCmdTableMaps[cmd_index]
-
+        
         return data
 
 
@@ -141,9 +99,7 @@ class Check_NRPE(PythonPlugin):
             om.nrpe_cmd = results[cmd_index]['nrpe_cmd']
             om.nrpe_args = results[cmd_index]['nrpe_args']
             om.nrpe_timeout = results[cmd_index]['nrpe_timeout']
-            om.nrpe_min = results[cmd_index]['nrpe_min']
-            om.nrpe_max = results[cmd_index]['nrpe_max']
-            om.nrpe_graphpoint = results[cmd_index]['nrpe_graphpoint']
 
             rm.append(om)
+        
         return rm

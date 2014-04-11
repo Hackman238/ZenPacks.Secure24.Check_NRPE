@@ -14,12 +14,8 @@ from Products.Zuul.infos import ProxyProperty
 from Products.Zuul.infos.device import DeviceInfo
 from Products.Zuul.infos.component import ComponentInfo
 
-from ZenPacks.Secure24.Check_NRPE.interfaces import ( InrpeDeviceInfo, InrpeComponentInfo )
+from ZenPacks.Secure24.Check_NRPE.interfaces import InrpeComponentInfo 
 
-class nrpeDeviceInfo(DeviceInfo):
-    implements(InrpeDeviceInfo)
-
-    nrpe_check_count = ProxyProperty('nrpe_check_count')
 
 class nrpeComponentInfo(ComponentInfo):
     implements(InrpeComponentInfo)
