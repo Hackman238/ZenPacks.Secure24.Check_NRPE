@@ -101,5 +101,5 @@ class Check_NRPE(PythonPlugin):
             om.nrpe_timeout = results[cmd_index]['nrpe_timeout']
 
             rm.append(om)
-        import pdb; pdb.set_trace()
+
         return rm
