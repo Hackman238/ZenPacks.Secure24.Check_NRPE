@@ -36,8 +36,9 @@
                     {name: 'nrpe_cmd'},
                     {name: 'nrpe_args'},
                     {name: 'nrpe_timeout'},
-                    {name: 'nrpe_cycle'},
-                    {name: 'nrpe_retries'}
+                    {name: 'nrpe_min'},
+                    {name: 'nrpe_max'},
+                    {name: 'nrpe_graphpoint'}
                 ],
                 columns: [{
                     id: 'severity',
@@ -64,21 +65,27 @@
                     sortable: true,
                     width: 200
                 },{
+                    id: 'nrpe_graphpoint',
+                    dataIndex: 'nrpe_graphpoint',
+                    header: _t('Graph Point'),
+                    sortable: true,
+                    width: 120
+                },{
                     id: 'nrpe_timeout',
                     dataIndex: 'nrpe_timeout',
                     header: _t('Timeout'),
                     sortable: true,
                     width: 50
                 },{
-                    id: 'nrpe_cycle',
-                    dataIndex: 'nrpe_cycle',
-                    header: _t('Cycle'),
+                    id: 'nrpe_min',
+                    dataIndex: 'nrpe_min',
+                    header: _t('Min Threshold'),
                     sortable: true,
                     width: 50
                 },{
-                    id: 'nrpe_retries',
-                    dataIndex: 'nrpe_retries',
-                    header: _t('Retries'),
+                    id: 'nrpe_max',
+                    dataIndex: 'nrpe_max',
+                    header: _t('Max Threshold'),
                     sortable: true,
                     width: 50
                 },{

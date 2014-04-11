@@ -28,6 +28,8 @@ class nrpeComponentInfo(ComponentInfo):
     nrpe_cmd = ProxyProperty("nrpe_cmd")
     nrpe_args = ProxyProperty("nrpe_args")
     nrpe_timeout = ProxyProperty("nrpe_timeout")
-    nrpe_cycle = ProxyProperty("nrpe_cycle")
-    nrpe_retries = ProxyProperty("nrpe_retries")
+    nrpe_min = ProxyProperty("nrpe_min")
+    nrpe_max = ProxyProperty("nrpe_max")
+    device_os = ProxyProperty("device_os")
+    nrpe_graphpoint = ProxyProperty("nrpe_graphpoint")
 

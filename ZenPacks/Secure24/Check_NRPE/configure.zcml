@@ -13,6 +13,12 @@
         factory=".info.nrpeComponentInfo"
         />
 
+    <adapter
+        provides=".interfaces.InrpeComponentFacade"
+        for=".nrpeComponent.nrpeComponent"
+        factory=".facades.nrpeComponentFacade"
+        />
+
     <include package=".browser"/>
 
 </configure>

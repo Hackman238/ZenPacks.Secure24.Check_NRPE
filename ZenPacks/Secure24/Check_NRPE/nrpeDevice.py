@@ -28,3 +28,7 @@ class nrpeDevice(Device):
             ),
         ),
     )
+
+#    _relations = Device._relations + (
+#        ("nrpeComponents", ToOne(ToManyCont,"Products.ZenModel.OperatingSystem","os")),
+#        )
