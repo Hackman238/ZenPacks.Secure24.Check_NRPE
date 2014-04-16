@@ -1,8 +1,6 @@
 from Products.ZenModel.OSComponent import OSComponent
-from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
+from Products.ZenModel.ManagedEntity import ManagedEntity
 from Products.ZenRelations.RelSchema import ToManyCont, ToOne
-from Globals import DTMLFile
-from Products.ZenUtils.Utils import prepId
 
 
 class nrpeComponent(OSComponent):
