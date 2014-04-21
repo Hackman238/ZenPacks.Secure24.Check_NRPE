@@ -58,26 +58,27 @@ class Check_NRPE(PythonPlugin):
         try:
             zsb = ZenScriptBase(self, connect=True)
             dmd_device = zsb.dmd.Devices.findDevice(device.id)
-            dmd_device_os = str(dmd_device.getDeviceClassName()).lower()
-            dmd_device_nrpeComponents = dmd_device.nrpeComponents()
-            for cmd in dmd_device_nrpeComponents:
-
-                 nrpeCmdTableMaps[cmd.id] = {
-                     'device_os': cmd.device_os,
-                     'nrpe_cmd': cmd.nrpe_cmd,
-                     'nrpe_args': cmd.nrpe_args,
-                     'nrpe_timeout': cmd.nrpe_timeout,
-                     }
         except:
             log.warn('Unable to pull previous NRPE Components')
 
-        if "linux" in dmd_device_os:
-            device_os = "linux"
-        elif "windows" in dmd_device_os:
-            device_os = "windows"
-        else:
-            device_os = "unknown"
-            log.warn('Unable to determine OS. Skipping...')
+        dmd_device_os = str(dmd_device.getDeviceClassName()).lower()
+        dmd_device_nrpeComponents = dmd_device.os.nrpeComponent()
+
+        for cmd in dmd_device_nrpeComponents:
+            if "linux" in dmd_device_os:
+                device_os = "linux"
+            elif "windows" in dmd_device_os:
+                device_os = "windows"
+            else:
+                device_os = "unknown"
+                log.warn('Unable to determine OS. Skipping...')
+
+            nrpeCmdTableMaps[cmd.id] = {
+                'device_os': device_os,
+                'nrpe_cmd': cmd.nrpe_cmd,
+                'nrpe_args': cmd.nrpe_args,
+                'nrpe_timeout': cmd.nrpe_timeout,
+                }
 
         data = {}
         for cmd_index in nrpeCmdTableMaps:
@@ -85,7 +86,7 @@ class Check_NRPE(PythonPlugin):
                 continue
             else:
                 data[cmd_index] = nrpeCmdTableMaps[cmd_index]
-        
+
         return data
 
 

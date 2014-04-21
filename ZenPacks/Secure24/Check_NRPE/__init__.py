@@ -8,5 +8,5 @@ from Products.ZenModel.Software import Software
 
 
 OperatingSystem._relations += (
-    ("nrpeComponent", ToManyCont(ToOne, "ZenPacks.Secure-24.Check_NRPE.nrpeComponent", "os")),
+    ("nrpeComponent", ToManyCont(ToOne, "ZenPacks.Secure24.Check_NRPE.nrpeComponent", "os")),
 )
