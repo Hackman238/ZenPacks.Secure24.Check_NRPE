@@ -56,7 +56,7 @@ class nrpeComponent(OSComponent):
         if REQUEST is not None:
             url = self.device().os.absolute_url()
         self.getPrimaryParent()._delObject(self.id)
-        '''
+        
         eventDict = {
             'eventClass': Change_Remove,
             'device': self.device().id,
@@ -65,7 +65,7 @@ class nrpeComponent(OSComponent):
             'severity': Event.Info,
             }
         self.dmd.ZenEventManager.sendEvent(eventDict)
-        '''
+        
         if REQUEST is not None:
             REQUEST['RESPONSE'].redirect(url)
 
