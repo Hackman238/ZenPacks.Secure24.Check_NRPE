@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configure xmlns="http://namespaces.zope.org/zope">
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    >
 
     <adapter
         provides=".interfaces.InrpeComponentInfo"
         for=".nrpeComponent.nrpeComponent"
         factory=".info.nrpeComponentInfo"
+        />
+
+    <include package="Products.ZenUtils.extdirect.zope" file="meta.zcml"/>
+
+    <browser:directRouter
+        name="nrpeComponent_router"
+        for="*"
+        class=".routers.nrpeComponentRouter"
+        namespace="Zenoss.remote"
+        permission="zenoss.View"
         />
 
     <include package=".browser"/>

@@ -1,6 +1,6 @@
 (function(){
  
-var router = Zenoss.remote.ComponentRouter;
+var router = Zenoss.remote.nrpeComponentRouter;
 
 // Setup Add Dialog Window
 Ext.define('Zenoss.component.add.nrpeComponent',{
@@ -56,7 +56,7 @@ Ext.define('Zenoss.component.add.nrpeComponent',{
     },
     createnrpeComponent: function(values) {
         values.uid = this.uid;
-        router.nrpeComponentRouter.addnrpeComponent(values, function(response){
+        router.addnrpeComponent(values, function(response){
             if (response.success) {
                 Zenoss.message.info(_t("Added NRPE Check"));
             }

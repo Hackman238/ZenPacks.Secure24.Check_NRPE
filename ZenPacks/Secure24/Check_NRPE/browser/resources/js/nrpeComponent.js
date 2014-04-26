@@ -35,7 +35,9 @@
                     {name: 'locking'},
                     {name: 'nrpe_cmd'},
                     {name: 'nrpe_args'},
-                    {name: 'nrpe_timeout'}
+                    {name: 'nrpe_timeout'},
+                    {name: 'nrpe_min'},
+                    {name: 'nrpe_max'}
                 ],
                 columns: [{
                     id: 'severity',
@@ -65,6 +67,18 @@
                     id: 'nrpe_timeout',
                     dataIndex: 'nrpe_timeout',
                     header: _t('Timeout'),
+                    sortable: true,
+                    width: 50
+                },{
+                    id: 'nrpe_min',
+                    dataIndex: 'nrpe_min',
+                    header: _t('Min'),
+                    sortable: true,
+                    width: 50
+                },{
+                    id: 'nrpe_max',
+                    dataIndex: 'nrpe_max',
+                    header: _t('Max'),
                     sortable: true,
                     width: 50
                 },{
