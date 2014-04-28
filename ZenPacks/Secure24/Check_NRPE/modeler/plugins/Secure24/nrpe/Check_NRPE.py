@@ -8,17 +8,13 @@ class Check_NRPE(PythonPlugin):
     modname = 'ZenPacks.Secure24.Check_NRPE.nrpeComponent'
     compname = 'os'
 
-#    deviceProperties = CollectorPlugin.deviceProperties + (
-#        'cNRPEChecks',
-#        )
-
     deviceProperties = CollectorPlugin.deviceProperties + (
-        'cNRPEChecks',
+        'zNRPEChecks',
         )
 
 
     def collect(self, device, log):
-        nrpe_checks = device.cNRPEChecks
+        nrpe_checks = device.zNRPEChecks
         data = {}
 
         for check in nrpe_checks:

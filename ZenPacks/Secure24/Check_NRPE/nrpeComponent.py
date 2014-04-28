@@ -9,7 +9,9 @@ class nrpeComponent(OSComponent):
     nrpe_cmd = None
     nrpe_args = None
     nrpe_timeout = 30
-    device_os = None
+    nrpe_min = None
+    nrpe_max = None
+    nrpe_type = 'errorcode'
 
     _properties = OSComponent._properties + (
         {'id': 'title', 'type': 'string', 'mode': ''},
@@ -18,7 +20,6 @@ class nrpeComponent(OSComponent):
         {'id': 'nrpe_min', 'type': 'string', 'mode': ''},
         {'id': 'nrpe_max', 'type': 'string', 'mode': ''},
         {'id': 'nrpe_timeout', 'type': 'int', 'mode': ''},
-        {'id': 'device_os', 'type': 'string', 'mode': ''},
         {'id': 'nrpe_type', 'type': 'string', 'mode': ''},
     )
 
@@ -27,11 +28,22 @@ class nrpeComponent(OSComponent):
         )
 
     isUserCreatedFlag = False
+
     def isUserCreated(self):
         return self.isUserCreatedFlag
 
+
     def getRRDTemplateName(self):
-        return 'nrpeComponent'
+        nrpeTemplates = {
+            'errorcode': 'nrpeComponent',
+            'graph': 'nrpeComponent-graph',
+            'threshold': 'nrpeComponent-threshold',
+            'win-cpu': 'nrpeComponent-wincpu',
+            'win-mem': 'nrpeComponent-winmem',
+        }
+
+        return nrpeTemplates[self.nrpe_type]
+
 
     def manage_deleteComponent(self, REQUEST=None):
         """
